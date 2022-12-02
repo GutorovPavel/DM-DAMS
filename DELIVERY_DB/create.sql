@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS clients
 (
 	client_id serial PRIMARY KEY,
 	address text NOT NULL,
-	fk_user_id int UNIQUE NOT NULL REFERENCES users(user_id) ON DELETE CASCADE
+	user_id int UNIQUE NOT NULL REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS posts
@@ -29,12 +29,21 @@ CREATE TABLE IF NOT EXISTS employees
 	fk_user_id int UNIQUE NOT NULL REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+ALTER TABLE employees
+RENAME COLUMN fk_user_id TO user_id;
+
+ALTER TABLE employees
+RENAME COLUMN fk_post_id TO post_id;
+
 CREATE TABLE IF NOT EXISTS logging
 (
 	log_id serial PRIMARY KEY,
 	log_message varchar(127) NOT NULL,
 	fk_user_id int REFERENCES users(user_id) ON DELETE SET NULL
 );
+
+ALTER TABLE logging
+RENAME COLUMN fk_user_id TO user_id;
 
 CREATE TABLE IF NOT EXISTS restaurants
 (
@@ -60,6 +69,15 @@ CREATE TABLE IF NOT EXISTS dishes
 	cookup_time time NOT NULL
 );
 
+ALTER TABLE dish_types 
+RENAME COLUMN type_id TO dish_type_id;
+
+ALTER TABLE dish_types 
+RENAME COLUMN type_name TO dish_type_name;
+
+ALTER TABLE dishes
+RENAME COLUMN dish_type TO dish_type_id;
+
 CREATE TABLE IF NOT EXISTS order_status
 (
 	status_id serial PRIMARY KEY,
@@ -70,16 +88,17 @@ CREATE TABLE IF NOT EXISTS orders
 (
 	order_id serial PRIMARY KEY,
 	create_time timestamp NOT NULL,
-	deliver_time timestamp NOT NULL,
+	deliver_time timestamp DEFAULT NULL,
 	client_id int REFERENCES clients(client_id) ON DELETE SET NULL,
 	status_id int NOT NULL REFERENCES order_status(status_id),
 	total_price decimal NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS restaurants_dishes
 (
-	fk_restaurant_id int REFERENCES restaurants(restaurant_id) ON DELETE CASCADE,
-	fk_dish_id int REFERENCES dishes(dish_id) ON DELETE CASCADE
+	restaurant_id int REFERENCES restaurants(restaurant_id) ON DELETE CASCADE,
+	dish_id int REFERENCES dishes(dish_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS orders_dishes 
@@ -88,11 +107,12 @@ CREATE TABLE IF NOT EXISTS orders_dishes
 	dish_id int REFERENCES dishes(dish_id) ON DELETE CASCADE
 );
 
--- ALTER TABLE IF EXISTS orders
--- ADD CHECK (total_price >= 0);
+
+ALTER TABLE IF EXISTS orders
+ADD CHECK (total_price >= 0);
 
 ALTER TABLE IF EXISTS restaurants
 ADD CHECK (restaurant_rating >= 0);
 
--- ALTER TABLE IF EXISTS restaurants
--- ADD COLUMN restaurant_rating NUMERIC(2, 1) NOT NULL;
+ALTER TABLE IF EXISTS restaurants
+ADD COLUMN restaurant_rating NUMERIC(2, 1) NOT NULL;
