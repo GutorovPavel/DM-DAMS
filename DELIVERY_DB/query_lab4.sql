@@ -2,6 +2,7 @@
 SELECT order_id, status_name FROM orders o, order_status s
 WHERE o.status_id = s.status_id AND s.status_id = 4
 
+
 SELECT status_name, COUNT(o.*) FROM orders o, order_status s
 WHERE o.status_id = s.status_id
 GROUP BY status_name
@@ -67,18 +68,20 @@ ORDER BY price DESC;
 
 
 -- podzaprosi
-
 SELECT first_name, last_name, salary FROM employees
 JOIN users USING(user_id)
 WHERE salary > (SELECT AVG(salary) FROM employees)
 ORDER BY salary
 
+
 SELECT first_name, last_name, SUM(total_price) from clients
 JOIN orders USING(client_id)
 JOIN users USING(user_id)
-WHERE EXISTS (SELECT client_id FROM orders
-			 WHERE client_id = clients.client_id
-			 AND total_price BETWEEN 600 AND 4000)
+WHERE EXISTS (
+	SELECT client_id FROM orders
+	WHERE client_id = clients.client_id
+	AND total_price BETWEEN 600 AND 4000
+)
 GROUP BY first_name, last_name
 ORDER BY SUM(total_price) DESC
 
@@ -94,14 +97,8 @@ ORDER BY SUM(total_price) DESC
 		
 		
 SELECT restaurant_name, address, phone FROM restaurants
-WHERE restaurant_rating > 4 AND EXISTS (SELECT dish_id FROM dishes 
-										WHERE price < 80 AND dish_type_id = 1)
+WHERE restaurant_rating > 4 AND EXISTS (
+	SELECT dish_id FROM dishes 					
+	WHERE price < 80 AND dish_type_id = 1
+);
 										
-										
-
-
-
-
-
-
-

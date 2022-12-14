@@ -85,7 +85,24 @@ INSERT INTO dishes(dish_name, dish_type_id, price, cookup_time) VALUES
 ('dish13_type4', 4, 99.9, '00:30:00'),
 ('dish14_type5', 5, 89.9, '00:30:00'),
 ('dish15_type6', 6, 29.9, '00:10:00'),
-('dish16_type7', 7, 29.9, '00:10:00');
+('dish16_type7', 7, 29.9, '00:10:00'),
+('dish17_type7', 7, 28.9, '00:10:00'),
+('dish18_type7', 7, 27.9, '00:10:00'),
+('dish19_type7', 7, 26.9, '00:10:00'),
+('dish20_type7', 7, 25.9, '00:10:00'),
+('dish21_type7', 7, 24.9, '00:10:00'),
+('dish22_type7', 7, 23.9, '00:10:00'),
+('dish23_type7', 7, 22.9, '00:10:00'),
+('dish24_type7', 7, 21.9, '00:10:00'),
+('dish25_type7', 7, 19.9, '00:10:00'),
+('dish26_type7', 7, 18.9, '00:10:00'),
+('dish27_type7', 7, 17.9, '00:10:00'),
+('dish28_type7', 7, 16.9, '00:10:00'),
+('dish29_type7', 7, 15.9, '00:10:00'),
+('dish30_type7', 7, 14.9, '00:10:00'),
+('dish31_type7', 7, 13.9, '00:10:00'),
+('dish32_type7', 7, 12.9, '00:10:00');
+
 
 INSERT INTO restaurants_dishes(restaurant_id, dish_id) VALUES
 (1, 1),
@@ -138,7 +155,8 @@ INSERT INTO orders(create_time, deliver_time, client_id, status_id, total_price)
 ('2022-01-01 00:11:00', null, 5, 3, 500),
 ('2022-01-01 00:12:00', null, 5, 3, 600),
 ('2022-01-01 00:13:00', null, 6, 2, 700),
-('2022-01-01 00:14:00', null, 6, 1, 800);
+('2022-01-01 00:14:00', null, 6, 1, 800),
+('2022-01-01 00:15:00', '2022-01-01 00:50:00', 5, 4, 100);
 
 INSERT INTO orders_dishes(order_id, dish_id) VALUES
 (1, 1),

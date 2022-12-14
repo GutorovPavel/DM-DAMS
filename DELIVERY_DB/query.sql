@@ -56,4 +56,8 @@ WHERE dish_type = 1 OR dish_type = 2
 ORDER BY dish_type DESC;
 
 
+SELECT first_name FROM users
+WHERE first_name LIKE '%o'
+
+
 

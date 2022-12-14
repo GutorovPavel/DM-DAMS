@@ -94,6 +94,9 @@ CREATE TABLE IF NOT EXISTS orders
 	total_price decimal NOT NULL
 );
 
+ALTER TABLE orders
+ADD COLUMN is_premium boolean DEFAULT NULL
+
 
 CREATE TABLE IF NOT EXISTS restaurants_dishes
 (
